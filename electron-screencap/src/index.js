@@ -1,4 +1,10 @@
-const { app, BrowserWindow, ipcMain, Menu } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Menu,
+  desktopCapturer,
+} = require("electron");
 const path = require("path");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -50,17 +56,19 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-ipcMain.on("get-video-sources", (event) => {
-  const template = [
-    {
-      label: "Menu Item 1",
-      click: () => {
-        event.sender.send("context-menu-command", "menu-item-1");
-      },
-    },
-    { type: "separator" },
-    { label: "Menu Item 2", type: "checkbox", checked: true },
-  ];
+ipcMain.on("get-video-sources", async (event) => {
+  const inputSources = await desktopCapturer.getSources({
+    types: ["window", "screen"],
+  });
+
+  const template = inputSources.map((source) => {
+    return {
+      id: source.id,
+      label: source.name,
+      click: () => selectSource(source),
+    };
+  });
+
   const menu = Menu.buildFromTemplate(template);
   menu.popup(BrowserWindow.fromWebContents(event.sender));
 });

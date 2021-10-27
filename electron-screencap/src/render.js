@@ -3,14 +3,13 @@ const videoElement = document.querySelector("video");
 const startBtn = document.getElementById("startBtn");
 const stopBtn = document.getElementById("stopBtn");
 const videoSelectBtn = document.getElementById("videoSelectBtn");
-const { desktopCapturer, ipcRenderer } = require("electron");
+const { ipcRenderer } = require("electron");
 
 videoSelectBtn.onclick = getVideoSources;
 
-function getVideoSources(e) {
+async function getVideoSources(e) {
   e.preventDefault();
   ipcRenderer.send("get-video-sources");
-
   console.log("Getting video sources...");
 }
 
