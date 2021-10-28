@@ -16,27 +16,3 @@ async function getVideoSources(e) {
 ipcRenderer.on("get-video-sources-command", (e, command) => {
   // ...
 });
-
-// // Get the available video sources
-// async function getVideoSources() {
-//   const inputSources = await desktopCapturer.getSources({
-//     types: ["window", "screen"],
-//   });
-
-//   console.log(inputSources);
-
-//   const template = inputSources.map((source) => {
-//     return {
-//       id: source.id,
-//       label: source.name,
-//       click: () => selectSource(source),
-//     };
-//   });
-
-//   console.log(template);
-
-//   console.log(Menu);
-//   //   const videoOptionsMenu = Menu.buildFromtemplate(template);
-
-//   //   videoOptionsMenu.popup();
-// }
