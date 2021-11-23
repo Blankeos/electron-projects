@@ -9,10 +9,10 @@ videoSelectBtn.onclick = getVideoSources;
 
 async function getVideoSources(e) {
   e.preventDefault();
-  ipcRenderer.send("get-video-sources");
+  ipcRenderer.send("show-video-sources-contextmenu");
   console.log("Getting video sources...");
 }
 
-ipcRenderer.on("get-video-sources-command", (e, command) => {
-  // ...
+ipcRenderer.on("on-video-source-item-click", (e, args) => {
+  console.log(args);
 });

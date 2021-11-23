@@ -56,7 +56,12 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-ipcMain.on("get-video-sources", async (event) => {
+
+function selectSource(source) {
+  console.log(source);
+}
+
+ipcMain.on("show-video-sources-contextmenu", async (event) => {
   const inputSources = await desktopCapturer.getSources({
     types: ["window", "screen"],
   });
@@ -65,7 +70,10 @@ ipcMain.on("get-video-sources", async (event) => {
     return {
       id: source.id,
       label: source.name,
-      click: () => selectSource(source),
+      click: () => {
+        console.log(source);
+        event.sender.send("on-video-source-item-click", "menu-item");
+      },
     };
   });
 
