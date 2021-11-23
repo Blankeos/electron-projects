@@ -57,9 +57,26 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-function selectSource(source) {
-  console.log(source);
-}
+// function selectSource(source) {
+//   // (renderer)
+//   // videoSelectBtn.innerText = source.name;
+
+//   const constraints = {
+//     audio: false,
+//     video: {
+//       mandatory: {
+//         chromeMediaSource: "desktop",
+//         chromeMediaSourceId: source.id,
+//       },
+//     },
+//   };
+
+//   return {
+//     constraints,
+//     sourceName: source.name,
+//   };
+
+// }
 
 ipcMain.on("show-video-sources-contextmenu", async (event) => {
   const inputSources = await desktopCapturer.getSources({
@@ -67,13 +84,24 @@ ipcMain.on("show-video-sources-contextmenu", async (event) => {
   });
 
   const template = inputSources.map((source) => {
+    const constraints = {
+      audio: false,
+      video: {
+        mandatory: {
+          chromeMediaSource: "desktop",
+          chromeMediaSourceId: source.id,
+        },
+      },
+    };
+
     return {
       id: source.id,
       label: source.name,
-      click: () => {
-        console.log(source);
-        event.sender.send("on-video-source-item-click", "menu-item");
-      },
+      click: () =>
+        event.sender.send("on-video-source-item-click", {
+          constraints,
+          sourceName: source.name,
+        }),
     };
   });
 

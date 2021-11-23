@@ -13,6 +13,13 @@ async function getVideoSources(e) {
   console.log("Getting video sources...");
 }
 
-ipcRenderer.on("on-video-source-item-click", (e, args) => {
-  console.log(args);
-});
+ipcRenderer.on(
+  "on-video-source-item-click",
+  async (e, { constraints, sourceName }) => {
+    videoSelectBtn.innerText = sourceName;
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+    videoElement.srcObject = stream;
+    videoElement.play();
+  }
+);
