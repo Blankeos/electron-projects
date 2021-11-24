@@ -12,26 +12,40 @@
     <script defer src="render.js"></script>
   </head>
   <body>
-    <h1>⚡ Electron Screen Capture</h1>
+    <h1 class="text-center">
+      <span>⚡ </span
+      ><span class="font-bold text-lg">Electron Screen Capture</span>
+    </h1>
 
     <video></video>
-
-    <button
-      id="startBtn"
-      class="px-5 py-2 rounded-md text-white bg-yellow-500 hover:bg-yellow-400"
-    >
-      Start
-    </button>
-    <button
-      id="stopBtn"
-      class="px-5 py-2 rounded-md text-white bg-red-500 hover:bg-red-400"
-    >
-      Stop
-    </button>
-
+    <div class="flex items-center justify-center space-x-2 my-2">
+      <button
+        id="startBtn"
+        class="px-5 py-2 rounded-md text-white bg-green-500 hover:bg-yellow-400"
+      >
+        Start
+      </button>
+      <button
+        id="stopBtn"
+        class="px-5 py-2 rounded-md text-white bg-red-500 hover:bg-red-400"
+      >
+        Stop
+      </button>
+    </div>
+    <hr />
     <button
       id="videoSelectBtn"
-      class="px-5 py-2 border rounded-md hover:bg-black hover:text-white"
+      class="
+        px-5
+        py-2
+        border
+        rounded-md
+        hover:bg-black hover:text-white
+        my-2
+        flex
+        mx-auto
+        underline
+      "
     >
       👇 Choose a Video Source
     </button>
